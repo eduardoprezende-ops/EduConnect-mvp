@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - EduConnect</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <a href="dashboard.html" class="logo">EduConnect</a>
+                <div class="user-info">
+                    <span id="userName">Usuário</span>
+                    <button id="logoutBtn" class="btn btn-outline">Sair</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="dashboard">
+                <h1>Bem-vindo ao seu Dashboard</h1>
+                
+                <div class="dashboard-sections">
+                    <!-- Grupos de Estudo -->
+                    <section class="section">
+                        <h2>Grupos de Estudo</h2>
+                        <div class="section-content">
+                            <div class="action-buttons">
+                                <button id="createGroupBtn" class="btn btn-primary">Criar Grupo</button>
+                                <button id="joinGroupBtn" class="btn btn-secondary">Entrar em Grupo</button>
+                            </div>
+                            <div id="myGroups" class="items-list">
+                                <h3>Meus Grupos</h3>
+                                <div id="groupsList" class="list-container"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Mentorias -->
+                    <section class="section">
+                        <h2>Mentorias</h2>
+                        <div class="section-content">
+                            <div class="action-buttons">
+                                <button id="findMentorBtn" class="btn btn-primary">Encontrar Mentor</button>
+                                <button id="becomeMentorBtn" class="btn btn-secondary">Ser Mentor</button>
+                            </div>
+                            <div id="myMentorings" class="items-list">
+                                <h3>Minhas Mentorias</h3>
+                                <div id="mentoringsList" class="list-container"></div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Compartilhamento de Materiais -->
+                    <section class="section">
+                        <h2>Materiais de Estudo</h2>
+                        <div class="section-content">
+                            <div class="action-buttons">
+                                <button id="uploadMaterialBtn" class="btn btn-primary">Compartilhar Material</button>
+                            </div>
+                            <div id="myMaterials" class="items-list">
+                                <h3>Materiais Compartilhados</h3>
+                                <div id="materialsList" class="list-container"></div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para criar grupo -->
+    <div id="createGroupModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Criar Novo Grupo de Estudo</h2>
+            <form id="createGroupForm">
+                <div class="form-group">
+                    <label for="groupName">Nome do grupo:</label>
+                    <input type="text" id="groupName" required>
+                </div>
+                <div class="form-group">
+                    <label for="groupSubject">Matéria:</label>
+                    <input type="text" id="groupSubject" required>
+                </div>
+                <div class="form-group">
+                    <label for="groupDescription">Descrição:</label>
+                    <textarea id="groupDescription" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Criar Grupo</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para entrar em grupo -->
+    <div id="joinGroupModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Grupos Disponíveis</h2>
+            <div id="availableGroups" class="list-container"></div>
+        </div>
+    </div>
+
+    <!-- Modal para encontrar mentor -->
+    <div id="findMentorModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Mentores Disponíveis</h2>
+            <div id="availableMentors" class="list-container"></div>
+        </div>
+    </div>
+
+    <!-- Modal para ser mentor -->
+    <div id="becomeMentorModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Cadastrar-se como Mentor</h2>
+            <form id="becomeMentorForm">
+                <div class="form-group">
+                    <label for="mentorSubject">Área de especialidade:</label>
+                    <input type="text" id="mentorSubject" required>
+                </div>
+                <div class="form-group">
+                    <label for="mentorExperience">Experiência:</label>
+                    <textarea id="mentorExperience" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Cadastrar como Mentor</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para compartilhar material -->
+    <div id="uploadMaterialModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Compartilhar Material de Estudo</h2>
+            <form id="uploadMaterialForm">
+                <div class="form-group">
+                    <label for="materialTitle">Título:</label>
+                    <input type="text" id="materialTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="materialSubject">Matéria:</label>
+                    <input type="text" id="materialSubject" required>
+                </div>
+                <div class="form-group">
+                    <label for="materialType">Tipo:</label>
+                    <select id="materialType" required>
+                        <option value="">Selecione...</option>
+                        <option value="arquivo">Arquivo</option>
+                        <option value="link">Link</option>
+                    </select>
+                </div>
+                <div class="form-group" id="fileGroup">
+                    <label for="materialFile">Arquivo:</label>
+                    <input type="file" id="materialFile">
+                </div>
+                <div class="form-group" id="linkGroup" style="display: none;">
+                    <label for="materialLink">Link:</label>
+                    <input type="url" id="materialLink">
+                </div>
+                <div class="form-group">
+                    <label for="materialDescription">Descrição:</label>
+                    <textarea id="materialDescription" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Compartilhar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
